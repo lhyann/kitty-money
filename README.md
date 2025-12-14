@@ -19,12 +19,12 @@
 
 -----
 
-## 2\. 技术选型 (别给自己挖坑)
+## 2\. 技术选型 
 
 > 既然是自己维护，怎么顺手怎么来，不追求过度工程化。
 
-  - **语言**：`JavaScript` (先不上 TS 了，类型体操太累，MVP 跑通要紧)
-  - **框架**：`React Native` + `Expo` (Expo 现在的路由和构建都很强，开发体验最好)
+  - **语言**：`JavaScript`
+  - **框架**：`React Native` + `Expo` 
   - **数据库**：`SQLite` (Expo SQLite)
       - *理由*：纯本地，数据结构简单，以后想导出 JSON 也方便。
   - **绘图**：`react-native-svg` (用来放我的猫猫矢量图)
@@ -69,24 +69,29 @@
 
 ### 4.1 Categories (分类表)
 
-| 字段 | 类型 | 说明 |
-| :--- | :--- | :--- |
-| `id` | INTEGER | PK |
-| `name` | TEXT | 吃喝/交通/... |
-| `icon` | TEXT | 对应的 SVG 文件名或 Emoji |
-| `color` | TEXT | 用于饼图区分颜色 |
+| 字段           | 类型      | 说明                            |
+| :----------- | :------ | :---------------------------- |
+| `id`         | INTEGER | PK                            |
+| `name`       | TEXT    | 分类名（吃喝 / 交通 / …），**NOT NULL** |
+| `icon`       | TEXT    | SVG 文件名 / Emoji，可为 NULL       |
+| `color`      | TEXT    | 分类颜色（饼图用），可为 NULL             |
+| `created_at` | INTEGER | 创建时间（Unix Timestamp）          |
+
 
 ### 4.2 Transactions (流水表)
 
-| 字段 | 类型 | 说明 |
-| :--- | :--- | :--- |
-| `id` | INTEGER | PK |
-| `amount` | INTEGER | **存整数！** (如 19.90 存 1990) |
-| `type` | TEXT | `EXPENSE` (目前只做支出) / `INCOME` |
-| `category_id` | INTEGER | FK -\> Categories |
-| `note` | TEXT | 备注，买了啥 |
-| `occurred_at` | INTEGER | 时间戳 (存 Unix Timestamp 方便排序和转换) |
-| `created_at` | INTEGER | 创建时间 |
+| 字段               | 类型      | 说明                                              |
+| :--------------- | :------ | :---------------------------------------------- |
+| `id`             | INTEGER | PK                                              |
+| `amount`         | INTEGER | **金额（分）**，如 19.90 → 1990                        |
+| `type`           | TEXT    | `EXPENSE` / `INCOME`（当前主要用 EXPENSE）             |
+| `category_id`    | INTEGER | FK → Categories.id                              |
+| `note`           | TEXT    | 备注（奶茶 / 汉堡王 / 随便写）                              |
+| `merchant`       | TEXT    | 商家名（星巴克 / KFC），**可 NULL**                       |
+| `payment_method` | TEXT    | 支付方式（cash / debit / credit / wechat），**可 NULL** |
+| `occurred_at`    | INTEGER | 实际发生时间（Unix Timestamp）                          |
+| `created_at`     | INTEGER | 创建时间                                            |
+| `deleted_at`     | INTEGER | 软删除时间，NULL = 正常                                 |
 
 -----
 
@@ -152,6 +157,6 @@ npx expo start --tunnel
 
   - **关键词**：`治愈`、`圆润`、`低饱和度`。
   - **拒绝**：锐利的直角、纯黑纯白、复杂的渐变。
-  - **配色**：
+  - **配色**：emmm，薄荷色的外星猫猫，粉色的白猫猫，棕色的暹罗猫猫，黑色的黑猫猫，橘黄色的橘猫猫！！！
       
 
